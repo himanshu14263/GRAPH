@@ -1,8 +1,9 @@
-// PROBLEM :: DFS OF GRAPH (ADJACENCY LIST)
+// PROBLEM :: DFS OF GRAPH (ADJACENCY LIST) BOTH ITERATIVE AND RECURSIVE SOLUTION.
 
 #include <bits/stdc++.h>
 using namespace std;
 
+// iterative solution
 void dfs(list<int>* &adjList,int v,int strt)
 {
 	stack<int>s;
@@ -30,6 +31,34 @@ void dfs(list<int>* &adjList,int v,int strt)
 		}
 	}
 }
+
+// recursive solution
+void dfsRecurUtil(list<int>* &adjList,bool visited[],int strt)
+{
+	cout<<strt<<" ";
+	list<int>::iterator it;
+	for(it=adjList[strt].begin();it!=adjList[strt].end();++it)
+	{
+		if(visited[*it]==false)
+		{
+			visited[*it]=true;
+			dfsRecurUtil(adjList,visited,*it);
+		}
+	}
+}
+void dfsRecur(list<int>* &adjList,int v,int strt)
+{
+	bool visited[v];
+
+	for(int i=0;i<v;i++)
+		visited[i]=false;
+
+	visited[strt]=true;
+
+	dfsRecurUtil(adjList,visited,strt);
+}
+
+
 int main()
 {
 	int v=4;
@@ -46,6 +75,6 @@ int main()
 
 	int strt=2;
 	cout<<"the dfs of the given graph is :: ";
-	dfs(adjList,v,strt);
+	dfsRecur(adjList,v,strt);
 
 }
